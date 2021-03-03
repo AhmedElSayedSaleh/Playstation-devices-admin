@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Play station</title>
+    <link rel="icon" href="img/Playstation_logo_colour.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl mb-3">
+            <div class="container h-100">
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <a class="navbar-brand" href="index.html">
+                    <img class="w-100" src="./img/logo.png" alt="">
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-tachometer-alt"></i>
+                                الرئيسية
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-file-alt"></i>
+                                <span>
+                                    Reports <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Daily Report</a>
+                                <a class="dropdown-item" href="#">Weekly Report</a>
+                                <a class="dropdown-item" href="#">Yearly Report</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">
+                                <i class="fas fa-shopping-cart"></i>
+                                Products
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="far fa-user"></i>
+                                Accounts
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog"></i>
+                                <span>
+                                    Settings <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Billing</a>
+                                <a class="dropdown-item" href="#">Customize</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-block" href="login.html">
+                                Admin, <b>Logout</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="container-fluid">
+            <!-- <div class="row">
+                <div class="col">
+                    <p class="mt-5 mb-5">Welcome back, <b>Admin</b></p>
+                </div>
+            </div> -->
+            <!-- row -->
+            <div class="tm-content-row">
+                <div class="col-12">
+                    <button class="btn btn-primary mb-3 w-25" data-toggle="modal" data-target="#staticBackdrop">
+                        اختيار الجهاز
+                    </button>
+                    <!-- __________________________________________start modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog my-3">
+                            <div class="modal-content">
+                                <!-- <div class="modal-header">
+                                    <h5 class="modal-title m-auto" id="staticBackdropLabel">اختر جهاز</h5>
+                                    <button type="button" class="close m-1" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div> -->
+                                <div class="p-2 d-flex justify-content-end modal-closer">
+                                    <button type="button" class="close m-1 mx-3" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-primary mx-2">تأكيد</button>
+                                    <button type="button" class="btn btn-secondary mx-2"
+                                        data-dismiss="modal">غلق</button> -->
+                                </div>
+
+                                <!-- __________________________________________ start modal body -->
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 mx-auto">
+                                                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                                                    <!-- <div class="row">
+                                                        <div class="col-12">
+                                                            <h2 class="tm-block-title d-inline-block">رقم الجهاز
+                                                            </h2>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="row">
+                                                        <form method="POST" id="deviceForm">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="number">رقم الجهاز
+                                                                    </label>
+                                                                    <input id="number" name="index" type="text" value=""
+                                                                        class="form-control validate" required />
+                                                                </div>
+                                                                <!-- <div class="form-group mb-3">
+                                                                    <label for="name">اسم الجهاز</label>
+                                                                    <input id="name" name="name" type="text" value=""
+                                                                        class="form-control validate" required />
+                                                                </div> -->
+                                                                <div class="form-group">
+                                                                    <label for="name">اسم الجهاز</label>
+                                                                    <select class="custom-select" id="name" name="name">
+                                                                        <option selected>اختر الجهاز</option>
+                                                                        <option value="ps3">ps3
+                                                                        </option>
+                                                                        <option value="ps4">ps4</option>
+                                                                        <option value="بلياردو">بلياردو</option>
+                                                                        <option value="بينج بونج">بينج بونج</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div
+                                                                        class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" id="customRadioInline1"
+                                                                            name="customRadioInline"
+                                                                            class="custom-control-input" value="single"
+                                                                            required>
+                                                                        <label class="custom-control-label"
+                                                                            for="customRadioInline1">سينجل</label>
+                                                                    </div>
+                                                                    <div
+                                                                        class="custom-control custom-radio custom-control-inline">
+                                                                        <input type="radio" id="customRadioInline2"
+                                                                            name="customRadioInline"
+                                                                            class="custom-control-input" value="multi"
+                                                                            required>
+                                                                        <label class="custom-control-label"
+                                                                            for="customRadioInline2">مالتي</label>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="form-group mb-1 text-center">
+                                                                    الوقت
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div
+                                                                        class="form-group col-xs-12 col-sm-6 text-center">
+                                                                        <label for="timeHour">ساعة
+                                                                        </label>
+                                                                        <input id="timeHour" name="hours" type="number"
+                                                                            value="0" class="form-control validate"
+                                                                            required />
+                                                                    </div>
+                                                                    <div
+                                                                        class="form-group col-xs-12 col-sm-6 text-center">
+                                                                        <label for="timeMin">دقيقة
+                                                                        </label>
+                                                                        <input id="timeMin" name="mins" type="number"
+                                                                            value="0" class="form-control validate"
+                                                                            required />
+                                                                    </div>
+                                                                    <!-- <div class=" col-xs-12 col-sm-4 align-self-center">
+                                                                        <div class="custom-control custom-switch">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="customSwitch1" name="open">
+                                                                            <label class="custom-control-label"
+                                                                                for="customSwitch1">مفتوح</label>
+                                                                        </div>
+                                                                    </div> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary btn-block">تأكيد</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- __________________________________________ end modal body -->
+
+                                <!-- <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">غلق</button>
+                                    <button type="button" class="btn btn-primary">تأكيد</button>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- __________________________________________end modal -->
+                    <div class="tm-bg-primary-dark tm-block-taller tm-block-overflow tm-devices mb-5">
+                        <div class="tm-notification-items tm-block d-flex flex-wrap" id="devices">
+
+                            <!-- here devices container -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/moment.min.js"></script>
+    <!-- https://momentjs.com/ -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="js/tooplate-scripts.js"></script>
+</body>
+
+</html>
