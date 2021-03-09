@@ -27,15 +27,16 @@ function addDevice() {
   let formData = new FormData(deviceForm);
 
   let device = {
+    id: devicesContainer.length + 1,
     index: formData.get("index"),
     name: formData.get("name"),
     players: formData.get("customRadioInline"),
     hours: parseInt(formData.get("hours")),
     mins: parseInt(formData.get("mins")),
     // open: formData.has("open"),
-    hoursCount: "00",
-    minsCount: "00",
-    secsCount: "00",
+    // hoursCount: "00",
+    // minsCount: "00",
+    // secsCount: "00",
   };
 
   devicesContainer.push(device);
@@ -77,7 +78,7 @@ function displayDevices() {
                 <p class="my-0 px-2" id="timeStatus">${timeStatus}</p>
             </div>
             <div class="h5 py-1 px-5 d-flex justify-content-around" dir="ltr" id="time">
-                <span>${item.hoursCount}</span>:<span>${item.minsCount}</span>:<span>${item.secsCount}</span>
+                <span id="hours">00</span>:<span id="mins">00</span>:<span id="secs">00</span>
             </div>
   
             <div class="d-flex justify-content-around py-3">
@@ -112,20 +113,25 @@ function displayDevices() {
   });
   devices.innerHTML = temp;
 }
-
 // stopwatch
 function stopwatch() {
-  let devicesTemp = document.querySelectorAll("#deviceTemp");
+  // let devicesTemp = document.querySelectorAll("#deviceTemp");
+  let devicesTemp = Array.from(devices.children);
+  // console.log(devicesTemp);
 
   devicesTemp.forEach((temp) => {
-    let time = temp.querySelector("#time");
+    // let time = temp.querySelector("#time");
+    let hours = temp.querySelector("#hours");
+    let mins = temp.querySelector("#mins");
+    let secs = temp.querySelector("#secs");
     let startBtn = temp.querySelector("#start");
     let stopBtn = temp.querySelector("#stop");
 
     let timeObj = {
-      hour: time.children[0].innerText,
-      min: time.children[1].innerText,
-      sec: time.children[2].innerText,
+      id: devicesTemp.indexOf(temp),
+      hour: hours.textContent,
+      min: mins.textContent,
+      sec: secs.textContent,
     };
 
     function setTime() {
@@ -133,7 +139,6 @@ function stopwatch() {
       if (timeObj.sec < 10) {
         timeObj.sec = "0" + timeObj.sec;
       }
-
       if (timeObj.sec == 60) {
         timeObj.min++;
         if (timeObj.min < 10) {
@@ -148,47 +153,56 @@ function stopwatch() {
         }
         timeObj.min = "00";
       }
-      timeContainer.push(timeObj);
-      sessionStorage.setItem("timer", JSON.stringify(timeObj));
 
-      // timeContainer.forEach((timer) => {
+      hours.innerText = timeObj.hour;
+      mins.innerText = timeObj.min;
+      secs.innerText = timeObj.sec;
       console.log(timeObj);
-      time.children[0].innerText = timeObj.hour;
-      time.children[1].innerText = timeObj.min;
-      time.children[2].innerText = timeObj.sec;
-      // });
     }
 
     let timeStart;
-    startBtn.addEventListener("click", function () {
-      this.classList.add("d-none");
-      stopBtn.classList.remove("d-none");
-      sessionStorage.className = "d-none";
-
-      timeStart = setInterval(setTime, 1000);
-      console.log(timeObj);
-    });
-
     $(document).ready(function () {
-      console.log(temp);
-      if (sessionStorage.getItem("timer") !== null) {
-        timeObj = JSON.parse(sessionStorage.getItem("timer"));
+      // ======================================== start btn
+      startBtn.addEventListener("click", function () {
+        this.classList.add("d-none");
+        stopBtn.classList.remove("d-none");
+        sessionStorage.className = "d-none";
+
+        timeStart = setInterval(setTime, 1000);
         console.log(timeObj);
-        time.children[0].innerText = timeObj.hour;
-        time.children[1].innerText = timeObj.min;
-        time.children[2].innerText = timeObj.sec;
+      });
+
+      // ======================================== stop btn
+      stopBtn.addEventListener("click", function () {
+        this.classList.add("d-none");
+        startBtn.classList.remove("d-none");
+        sessionStorage.removeItem("className");
+        clearInterval(timeStart);
+        console.log(timeObj.id);
+        timeContainer.forEach((i) => {
+          if (i.id == timeObj.id) {
+            console.log(i);
+            timeContainer.splice(timeContainer.indexOf(i), 1);
+          }
+        });
+        timeContainer.push(timeObj);
+        console.log(timeContainer);
+        sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+      });
+
+      console.log(devicesTemp.indexOf(temp));
+      console.log(timeContainer);
+      if (sessionStorage.getItem("timer") !== null) {
+        timeContainer = sessionStorage.getItem("timer");
+        console.log(timeContainer);
+        // time.children[0].innerText = timeObj.hour;
+        // time.children[1].innerText = timeObj.min;
+        // time.children[2].innerText = timeObj.sec;
 
         startBtn.classList.add(sessionStorage.className);
         stopBtn.classList.remove(sessionStorage.className);
         setInterval(setTime, 1000);
       }
-    });
-
-    stopBtn.addEventListener("click", function () {
-      this.classList.add("d-none");
-      startBtn.classList.remove("d-none");
-      sessionStorage.removeItem("className");
-      clearInterval(timeStart);
     });
   });
 }
