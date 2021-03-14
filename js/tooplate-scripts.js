@@ -27,7 +27,7 @@ function addDevice() {
   let formData = new FormData(deviceForm);
 
   let device = {
-    id: devicesContainer.length + 1,
+    id: devicesContainer.length,
     index: formData.get("index"),
     name: formData.get("name"),
     players: formData.get("customRadioInline"),
@@ -132,6 +132,7 @@ function stopwatch() {
       hour: hours.textContent,
       min: mins.textContent,
       sec: secs.textContent,
+      display: Boolean,
     };
 
     function setTime() {
@@ -157,53 +158,95 @@ function stopwatch() {
       hours.innerText = timeObj.hour;
       mins.innerText = timeObj.min;
       secs.innerText = timeObj.sec;
-      console.log(timeObj);
+      // timeObj.display = true;
+      // console.log(timeObj);
     }
 
     let timeStart;
-    $(document).ready(function () {
-      // ======================================== start btn
-      startBtn.addEventListener("click", function () {
-        this.classList.add("d-none");
-        stopBtn.classList.remove("d-none");
-        sessionStorage.className = "d-none";
+    // ======================================== set timer object to storage before reloading
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      setTimerObj();
+    };
+    getTimerObj();
 
-        timeStart = setInterval(setTime, 1000);
-        console.log(timeObj);
+    // ======================================== start btn
+    startBtn.addEventListener("click", function () {
+      this.classList.add("d-none");
+      stopBtn.classList.remove("d-none");
+      // sessionStorage.className = "d-none";
+      // console.log(timeContainer);
+      timeObj.display = true;
+      timeStart = setInterval(setTime, 1000);
+      timeContainer.forEach((i) => {
+        if (i.id == timeObj.id) {
+          // console.log(i);
+          timeContainer.splice(timeContainer.indexOf(i), 1);
+        }
       });
+      timeContainer.push(timeObj);
+      // console.log(timeContainer);
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+      // console.log(timeObj);
+    });
 
-      // ======================================== stop btn
-      stopBtn.addEventListener("click", function () {
-        this.classList.add("d-none");
-        startBtn.classList.remove("d-none");
-        sessionStorage.removeItem("className");
-        clearInterval(timeStart);
-        console.log(timeObj.id);
-        timeContainer.forEach((i) => {
-          if (i.id == timeObj.id) {
-            console.log(i);
-            timeContainer.splice(timeContainer.indexOf(i), 1);
+    // ======================================== stop btn
+    stopBtn.addEventListener("click", function () {
+      this.classList.add("d-none");
+      startBtn.classList.remove("d-none");
+      sessionStorage.removeItem("className");
+      clearInterval(timeStart);
+      // console.log(timeObj.id);
+      timeContainer.forEach((i) => {
+        if (i.id == timeObj.id) {
+          timeObj.display = false;
+          // console.log(timeObj.display);
+          // console.log(i);
+          timeContainer.splice(timeContainer.indexOf(i), 1);
+        }
+      });
+      timeContainer.push(timeObj);
+      // console.log(timeContainer);
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+    });
+
+    // ======================================== function to set timer object to storage
+    function setTimerObj() {
+      timeContainer.forEach((el) => {
+        // console.log(timeContainer);
+        if (el.id == timeObj.id) {
+          timeContainer.splice(timeContainer.indexOf(el), 1);
+          // console.log(timeContainer.splice(timeContainer.indexOf(el), 1));
+        }
+      });
+      timeContainer.push(timeObj);
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+    }
+    setTimerObj();
+
+    // ======================================== function to get timer object from storage
+    function getTimerObj() {
+      if (sessionStorage.getItem("timer") !== null) {
+        timeContainer = JSON.parse(sessionStorage.getItem("timer"));
+        timeContainer.forEach((elem) => {
+          if (elem.id == devicesTemp.indexOf(temp)) {
+            timeObj = elem;
+            hours.innerText = timeObj.hour;
+            mins.innerText = timeObj.min;
+            secs.innerText = timeObj.sec;
+
+            if (elem.display == true) {
+              startBtn.classList.add("d-none");
+              stopBtn.classList.remove("d-none");
+              timeStart = setInterval(setTime, 1000);
+            }
           }
         });
-        timeContainer.push(timeObj);
-        console.log(timeContainer);
-        sessionStorage.setItem("timer", JSON.stringify(timeContainer));
-      });
-
-      console.log(devicesTemp.indexOf(temp));
-      console.log(timeContainer);
-      if (sessionStorage.getItem("timer") !== null) {
-        timeContainer = sessionStorage.getItem("timer");
-        console.log(timeContainer);
-        // time.children[0].innerText = timeObj.hour;
-        // time.children[1].innerText = timeObj.min;
-        // time.children[2].innerText = timeObj.sec;
-
-        startBtn.classList.add(sessionStorage.className);
-        stopBtn.classList.remove(sessionStorage.className);
-        setInterval(setTime, 1000);
       }
-    });
+    }
+
+    // ======================================== get timer object from storage after reloading
+    // console.log(devicesTemp.indexOf(temp));
   });
 }
 
