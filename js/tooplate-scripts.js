@@ -155,18 +155,27 @@ function stopwatch() {
         timeObj.min = "00";
       }
 
+      timeContainer.forEach((i) => {
+        if (i.id == timeObj.id) {
+          timeContainer.splice(timeContainer.indexOf(i), 1);
+        }
+      });
+      timeContainer.push(timeObj);
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+
       hours.innerText = timeObj.hour;
       mins.innerText = timeObj.min;
       secs.innerText = timeObj.sec;
       // timeObj.display = true;
-      // console.log(timeObj);
+      // console.log(timeContainer);
     }
 
     let timeStart;
     // ======================================== set timer object to storage before reloading
     window.onbeforeunload = function (e) {
       e.preventDefault();
-      setTimerObj();
+      // setTimerObj();
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
     };
     getTimerObj();
 
@@ -174,55 +183,55 @@ function stopwatch() {
     startBtn.addEventListener("click", function () {
       this.classList.add("d-none");
       stopBtn.classList.remove("d-none");
-      // sessionStorage.className = "d-none";
       // console.log(timeContainer);
       timeObj.display = true;
       timeStart = setInterval(setTime, 1000);
-      timeContainer.forEach((i) => {
-        if (i.id == timeObj.id) {
-          // console.log(i);
-          timeContainer.splice(timeContainer.indexOf(i), 1);
-        }
-      });
-      timeContainer.push(timeObj);
-      // console.log(timeContainer);
-      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
-      // console.log(timeObj);
+      // timeContainer.forEach((i) => {
+      //   if (i.id == timeObj.id) {
+      //     // console.log(i);
+      //     timeContainer.splice(timeContainer.indexOf(i), 1);
+      //   }
+      // });
+      // timeContainer.push(timeObj);
+      // // console.log(timeContainer);
+      // sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+      // // console.log(timeObj);
     });
 
     // ======================================== stop btn
     stopBtn.addEventListener("click", function () {
       this.classList.add("d-none");
       startBtn.classList.remove("d-none");
-      sessionStorage.removeItem("className");
       clearInterval(timeStart);
       // console.log(timeObj.id);
-      timeContainer.forEach((i) => {
-        if (i.id == timeObj.id) {
-          timeObj.display = false;
-          // console.log(timeObj.display);
-          // console.log(i);
-          timeContainer.splice(timeContainer.indexOf(i), 1);
-        }
-      });
-      timeContainer.push(timeObj);
-      // console.log(timeContainer);
-      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+      // timeContainer.forEach((i) => {
+      //   if (i.id == timeObj.id) {
+      timeObj.display = false;
+      //     // console.log(timeObj.display);
+      //     // console.log(i);
+      //     timeContainer.splice(timeContainer.indexOf(i), 1);
+      //   }
+      // });
+      // timeContainer.push(timeObj);
+      // sessionStorage.setItem("timer", JSON.stringify(timeContainer));
     });
 
     // ======================================== function to set timer object to storage
-    function setTimerObj() {
-      timeContainer.forEach((el) => {
-        // console.log(timeContainer);
-        if (el.id == timeObj.id) {
-          timeContainer.splice(timeContainer.indexOf(el), 1);
-          // console.log(timeContainer.splice(timeContainer.indexOf(el), 1));
-        }
-      });
-      timeContainer.push(timeObj);
-      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
-    }
-    setTimerObj();
+    // setTimerObj();
+    // console.log(timeObj);
+
+    // function setTimerObj() {
+    //   timeContainer.forEach((el) => {
+    //     // console.log(timeContainer);
+
+    //     if (el.id == timeObj.id) {
+    //       timeContainer.splice(timeContainer.indexOf(el), 1);
+    //       // console.log(timeObj);
+    //     }
+    //   });
+    //   timeContainer.push(timeObj);
+    //   sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+    // }
 
     // ======================================== function to get timer object from storage
     function getTimerObj() {
