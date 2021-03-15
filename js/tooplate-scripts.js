@@ -113,14 +113,12 @@ function displayDevices() {
   });
   devices.innerHTML = temp;
 }
-// stopwatch
+
+// ====================================================================== stopwatch
 function stopwatch() {
-  // let devicesTemp = document.querySelectorAll("#deviceTemp");
   let devicesTemp = Array.from(devices.children);
-  // console.log(devicesTemp);
 
   devicesTemp.forEach((temp) => {
-    // let time = temp.querySelector("#time");
     let hours = temp.querySelector("#hours");
     let mins = temp.querySelector("#mins");
     let secs = temp.querySelector("#secs");
@@ -166,36 +164,23 @@ function stopwatch() {
       hours.innerText = timeObj.hour;
       mins.innerText = timeObj.min;
       secs.innerText = timeObj.sec;
-      // timeObj.display = true;
-      // console.log(timeContainer);
     }
 
     let timeStart;
-    // ======================================== set timer object to storage before reloading
-    window.onbeforeunload = function (e) {
-      e.preventDefault();
-      // setTimerObj();
-      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
-    };
-    getTimerObj();
 
     // ======================================== start btn
     startBtn.addEventListener("click", function () {
       this.classList.add("d-none");
       stopBtn.classList.remove("d-none");
-      // console.log(timeContainer);
       timeObj.display = true;
       timeStart = setInterval(setTime, 1000);
       // timeContainer.forEach((i) => {
       //   if (i.id == timeObj.id) {
-      //     // console.log(i);
       //     timeContainer.splice(timeContainer.indexOf(i), 1);
       //   }
       // });
       // timeContainer.push(timeObj);
-      // // console.log(timeContainer);
       // sessionStorage.setItem("timer", JSON.stringify(timeContainer));
-      // // console.log(timeObj);
     });
 
     // ======================================== stop btn
@@ -203,12 +188,11 @@ function stopwatch() {
       this.classList.add("d-none");
       startBtn.classList.remove("d-none");
       clearInterval(timeStart);
-      // console.log(timeObj.id);
       // timeContainer.forEach((i) => {
       //   if (i.id == timeObj.id) {
       timeObj.display = false;
-      //     // console.log(timeObj.display);
-      //     // console.log(i);
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+
       //     timeContainer.splice(timeContainer.indexOf(i), 1);
       //   }
       // });
@@ -222,11 +206,9 @@ function stopwatch() {
 
     // function setTimerObj() {
     //   timeContainer.forEach((el) => {
-    //     // console.log(timeContainer);
 
     //     if (el.id == timeObj.id) {
     //       timeContainer.splice(timeContainer.indexOf(el), 1);
-    //       // console.log(timeObj);
     //     }
     //   });
     //   timeContainer.push(timeObj);
@@ -256,14 +238,12 @@ function stopwatch() {
 
     // ======================================== get timer object from storage after reloading
     // console.log(devicesTemp.indexOf(temp));
+    // ======================================== set timer object to storage before reloading and get it
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      // setTimerObj();
+      sessionStorage.setItem("timer", JSON.stringify(timeContainer));
+    };
+    getTimerObj();
   });
 }
-
-// set correct syntax time
-// if (device.hours == 0 && device.mins == 0) {
-//   device.hours = "00";
-//   device.mins = "00";
-// } else if (device.hours < 10 || device.mins < 10) {
-//   device.hours = "0" + device.hours;
-//   device.mins = "0" + device.mins;
-// }
